@@ -14,10 +14,10 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     /**
      * Get the authenticated User.
@@ -34,10 +34,7 @@ class UserController extends Controller
      *
      * @return Response
      */
-    public function allUsers()
-    {
-         return response()->json(['users' =>  User::all()], 200);
-    }
+    
 
     /**
      * Get one user.
@@ -64,13 +61,26 @@ class UserController extends Controller
 
     public function showAllUsers()
     {
-        return response()->json(User::all());
+        return response()->json(User::all(), 200);
     }
 
     public function showOneUser($id)
     {
-        return response()->json(User::find($id));
+        try {
+            $user = User::findOrFail($id);
+
+            return response()->json($user, 200);
+
+        } catch (\Exception $e) {
+
+            return response()->json(['message' => 'user not found!'], 404);
+        }
+
     }
+
+
+
+
 
     public function create(Request $request)
     {

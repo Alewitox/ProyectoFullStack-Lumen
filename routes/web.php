@@ -25,11 +25,11 @@ $router->get('/key', function() {
 
 
 
-$router->group(['prefix' => 'api'], function () use ($router) {
+$router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
 
     // End-points de la tabla series.
 
-    $router->get('series',  ['uses' => 'SerieController@showAllSeries']);
+    
   
     $router->get('series/{id}', ['uses' => 'SerieController@showOneSerie']);
   
@@ -43,7 +43,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // End-points de la tabla episodes.
 
 
-    $router->get('episodes',  ['uses' => 'EpisodeController@showAllEpisodes']);
+    
   
     $router->get('episodes/{id}', ['uses' => 'EpisodeController@showOneEpisode']);
   
@@ -57,7 +57,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     // End-points de la tabla actors.
 
 
-    $router->get('actors',  ['uses' => 'ActorController@showAllActors']);
+    
   
     $router->get('actors/{id}', ['uses' => 'ActorController@showOneActor']);
   
@@ -66,6 +66,18 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('actors/{id}', ['uses' => 'ActorController@delete']);
   
     $router->put('actors/{id}', ['uses' => 'ActorController@update']);
+
+
+
+// End-points de la tabla users.
+
+
+
+    $router->get('users/{id}', ['uses' => 'UserController@showOneUser']);
+  
+    $router->delete('users/{id}', ['uses' => 'UserController@delete']);
+  
+    $router->put('users/{id}', ['uses' => 'UserController@update']);
     
     
 });
@@ -81,13 +93,23 @@ $router->group(['prefix' => 'api/auth'], function () use ($router) {
 
     $router->post('login', ['uses' => 'AuthController@login']);
 
-    $router->get('users',  ['uses' => 'UserController@allUsers']);
-  
-    $router->get('users/{id}', ['uses' => 'UserController@singleUser']);
-  
-    $router->delete('users/{id}', ['uses' => 'UserController@delete']);
-  
-    $router->put('users/{id}', ['uses' => 'UserController@update']);
+   
 
+
+});
+
+
+$router->group(['prefix' => 'api/all'], function () use ($router) {
+
+
+    $router->get('series',  ['uses' => 'SerieController@showAllSeries']);
+
+    $router->get('episodes',  ['uses' => 'EpisodeController@showAllEpisodes']);
+
+    $router->get('actors',  ['uses' => 'ActorController@showAllActors']);
+
+    $router->get('users',  ['uses' => 'UserController@showAllUsers']);
+ 
+   
 
 });

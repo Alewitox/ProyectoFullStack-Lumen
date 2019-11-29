@@ -63,6 +63,8 @@ $app->singleton(
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
+    'isAdmin' => App\Http\Middleware\CheckIsAdmin::class,
+    'isAdminOrSelf' => App\Http\Middleware\CheckIsAdminOrSelf::class,
 ]);
 
 /*
