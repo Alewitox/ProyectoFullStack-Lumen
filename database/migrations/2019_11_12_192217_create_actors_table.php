@@ -17,6 +17,7 @@ class CreateActorsTable extends Migration
             $table->increments('id');
             $table->string('character_name');
             $table->string('actor_name');
+            $table->string('img');
             $table->timestamps();
         });
     }

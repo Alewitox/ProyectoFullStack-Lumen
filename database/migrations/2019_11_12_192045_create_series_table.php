@@ -18,10 +18,16 @@ class CreateSeriesTable extends Migration
             $table->string('title');
             $table->string('network')->nullable();
             $table->text('description')->nullable();
-            $table->string('category')->nullable();
+            $table->string('categorie')->nullable();
+            $table->string('rating');
             $table->string('creator');
-            $table->date('first_air_date');
-            $table->date('last_air_date');
+            $table->string('original_title');
+            $table->string('original_language');
+            $table->string('status');
+            $table->string('first_air_date');
+            $table->string('last_air_date');
+            $table->string('img');
+
             $table->timestamps();
         });
     }

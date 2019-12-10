@@ -31,6 +31,9 @@ class DatabaseSeeder extends Seeder
             //return error message
             return response()->json(['message' => 'User Registration Failed!'], 409);
         }
+
+
+    
     }
     
 }
