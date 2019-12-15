@@ -170,5 +170,7 @@ class SeriesTableSeeder extends Seeder
             'img' => 'https://image.tmdb.org/t/p/w1280/5E1BhkCgjLBlqx557Z5yzcN0i88.jpg',
 
         ]);
+
+
     }
 }

@@ -79,6 +79,12 @@ class UserController extends Controller
     }
 
 
+    public function showOneUserWithEmail(Request $request)
+    {
+        $user=User::select('id')->where('email',$request->email);
+        return response()->json($user->get('id')->get(0));
+    }
+
 
 
 
@@ -100,6 +106,6 @@ class UserController extends Controller
     public function delete($id)
     {
         User::findOrFail($id)->delete();
-        return response('Se ha borrado correctamente', 200);
+        return response('Perfil borrado correctamente', 200);
     }
 }

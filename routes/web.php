@@ -18,11 +18,32 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+
+$router->get('/comment/{id_serie}/{id_user}', function ($id_serie, $id_user) use ($router) {
+    $serie = Serie::find($id_serie);
+    $serie -> users($id_user) ->attach($id_user, ['comentario' => 'Primer comentario']);
+    echo 'Guardado';
+    
+});
+
+$router->get('/comment/{id_serie}', function ($id_serie) use ($router) {
+    $serie = Serie::find($id_serie);
+    foreach($serie->users as $user){
+        echo ('comentario : '.$user->pivot->comentario." id ".$user->name.'</br>');
+    }
+    
+});
+
+
+
 $router->get('/key', function() {
     return str_random(32);
 });
 
 
+
+
+$router->post('user', ['uses' => 'UserController@showOneUserWithEmail']);
 
 
 $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($router) {
@@ -31,7 +52,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 
     
   
-    $router->get('series/{id}', ['uses' => 'SerieController@showOneSerie']);
+   
   
     $router->post('series', ['uses' => 'SerieController@create']);
   
@@ -43,9 +64,6 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
     // End-points de la tabla episodes.
 
 
-    
-  
-    $router->get('episodes/{id}', ['uses' => 'EpisodeController@showOneEpisode']);
   
     $router->post('episodes', ['uses' => 'EpisodeController@create']);
   
@@ -73,7 +91,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 
 
 
-    $router->get('users/{id}', ['uses' => 'UserController@showOneUser']);
+    $router->get('users/{id}',  ['uses' => 'UserController@showOneUser']);
   
     $router->delete('users/{id}', ['uses' => 'UserController@delete']);
   
@@ -102,13 +120,17 @@ $router->group(['prefix' => 'api/auth'], function () use ($router) {
 $router->group(['prefix' => 'api/all'], function () use ($router) {
 
 
+
     $router->get('series',  ['uses' => 'SerieController@showAllSeries']);
+
+    $router->get('series/{id}', ['uses' => 'SerieController@showOneSerie']);
 
     $router->get('episodes',  ['uses' => 'EpisodeController@showAllEpisodes']);
 
+    $router->get('episodes/{id}', ['uses' => 'EpisodeController@showOneEpisode']);
+
     $router->get('actors',  ['uses' => 'ActorController@showAllActors']);
 
-    $router->get('users',  ['uses' => 'UserController@showAllUsers']);
  
    
 

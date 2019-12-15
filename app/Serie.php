@@ -18,8 +18,8 @@ class Serie extends Model {
 
     public function users()
     {
-        return $this->belongsToMany('App\User')
-          ->withTimestamps();
+        return $this->belongsToMany('App\User', 'comments','series_id', 'users_id')
+          ->withPivot('comentario');
     }
 
     public function episodes()
