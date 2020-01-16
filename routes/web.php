@@ -14,9 +14,14 @@ use App\Serie;
 |
 */
 
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+$router->get('/getreport',  ['uses' => 'ReportController@generateReport']);
+
 
 
 $router->get('/comment/{id_serie}/{id_user}', function ($id_serie, $id_user) use ($router) {
@@ -77,7 +82,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 
     
   
-    $router->get('actors/{id}', ['uses' => 'ActorController@showOneActor']);
+    
   
     $router->post('actors', ['uses' => 'ActorController@create']);
   
@@ -90,6 +95,7 @@ $router->group(['prefix' => 'api', 'middleware' => 'auth'], function () use ($ro
 // End-points de la tabla users.
 
 
+    
 
     $router->get('users/{id}',  ['uses' => 'UserController@showOneUser']);
   
@@ -130,6 +136,10 @@ $router->group(['prefix' => 'api/all'], function () use ($router) {
     $router->get('episodes/{id}', ['uses' => 'EpisodeController@showOneEpisode']);
 
     $router->get('actors',  ['uses' => 'ActorController@showAllActors']);
+
+    $router->get('users',  ['uses' => 'UserController@showAllUsers']);
+
+    $router->get('actors/{id}', ['uses' => 'ActorController@showOneActor']);
 
  
    

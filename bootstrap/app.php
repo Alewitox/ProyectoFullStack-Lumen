@@ -23,6 +23,11 @@ $app = new Laravel\Lumen\Application(
 
 $app->withFacades();
 
+$app->singleton('jasperphp', function ($app) {
+    return new JasperPHP;
+});
+$app->alias('JasperPHP\JasperPHPServiceProvider\JasperPHP', 'JasperPHP');
+
 $app->withEloquent();
 
 /*
@@ -85,6 +90,8 @@ $app->register(App\Providers\AuthServiceProvider::class);
 
 // Linea añadida
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(JasperPHP\JasperPHPServiceProvider::class);
+
 
 /*
 |--------------------------------------------------------------------------
